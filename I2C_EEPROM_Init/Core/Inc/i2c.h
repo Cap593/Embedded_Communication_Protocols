@@ -1,0 +1,46 @@
+/*
+ * i2c.h
+ *
+ *  Created on: 06-Jul-2026
+ *      Author: HP
+ */
+
+
+
+#ifndef INC_I2C_H_
+#define INC_I2C_H_
+
+/*
+ * AT24C256 default 7-bit I2C address.
+ *
+ * Device address format:
+ * 1 0 1 0 0 A1 A0 R/W
+ *
+ * If A1 = 0 and A0 = 0:
+ * 7-bit address = 0b1010000 = 0x50
+ */
+#define AT24C256_ADDR_7BIT    0x50U
+#define AT24C256_ADDR_WRITE   (AT24C256_ADDR_7BIT << 1)
+#define AT24C256_ADDR_READ    ((AT24C256_ADDR_7BIT << 1) | 1U)
+
+/*
+ * AT24C256 memory details
+ */
+#define AT24C256_SIZE_BYTES        32768U
+#define AT24C256_LAST_ADDR         0x7FFFU
+#define AT24C256_PAGE_SIZE         64U
+
+/*
+ * I2C timeout for polling loops
+ */
+#define I2C_TIMEOUT                 100000U
+
+
+
+void AT24C256_I2C1_GPIO_Init(void);
+void AT24C256_I2C1_Init(void);
+uint8_t AT24C256_WriteByte(uint16_t mem_addr, uint8_t data);
+uint8_t AT24C256_ReadByte(uint16_t mem_addr, uint8_t *read_data);
+
+
+#endif /* INC_I2C_H_ */
